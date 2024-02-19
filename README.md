@@ -15,7 +15,9 @@
 
 Les smart contracts sont au cœur de l'écosystème blockchain, offrant des fonctionnalités décentralisées et autonomes qui sous-tendent un large éventail d'applications.
 
-Dans cet article, nous explorerons la visibilité des fonctions des smart contracts en Rust sur la blockchain Solana. Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, en mettant en lumière les similitudes et les différences entre les deux approches.
+Dans cet article, nous explorerons la visibilité des fonctions des smart contracts en Rust sur la blockchain Solana.
+
+Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, mettant en lumière les différences entre les deux approches.
 
 
 ## Solidity
@@ -39,7 +41,8 @@ Voici les différents niveaux de visibilité disponibles pour les fonctions en *
 3. **Interne (`internal`) :** Les fonctions internes sont similaires aux fonctions privées, mais elles peuvent également être appelées depuis les contrats dérivés (*hérités*). Elles ne sont pas accessibles depuis l'extérieur du contrat.
 4. **Externe (`external`) :** Les fonctions externes sont similaires aux fonctions publiques, mais elles ne peuvent être appelées que depuis l'extérieur de la blockchain (*c'est-à-dire par d'autres contrats ou par des transactions externes*). Elles ne peuvent pas être appelées depuis l'intérieur du contrat qui les définit.
 
-Exemple :
+### Exemple en Solidity
+
 ```solidity
 contract MainContract {
 
@@ -69,7 +72,7 @@ contract OtherContract {
 En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont accessibles et utilisables, ce qui contribue à la **sécurité** et à la **clarté** du contrat.
 
 
-## Rust / Anchor
+## Rust & Anchor
 
 Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fonctions des smart contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir sur les fonctions des smart contracts en Rust avec Anchor :
 
@@ -77,7 +80,51 @@ Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fo
 2. **Attributs spécifiques à Anchor :** Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
 3. **Fonctions d'instruction :** Les fonctions marquées avec l'attribut `#[instruction]` sont des instructions du contrat Solana qui peuvent être appelées depuis l'extérieur de la chaîne. Elles définissent les fonctionnalités et les actions du contrat.
 4. **Fonctions de vérification :** Les fonctions de vérification sont utilisées pour valider les transactions et peuvent être marquées avec l'attribut `#[instruction]` pour indiquer qu'elles sont appelées en tant qu'instructions, ou avec l'attribut `#[guard]` pour indiquer qu'elles sont utilisées pour la validation uniquement.
-5. **Gestion des comptes :** Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]`, qui spécifie les comptes impliqués dans une transaction et leur rôle (par exemple, compte source, compte destinataire, compte d'état du contrat, etc.).
+5. **Gestion des comptes :** Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]`, qui spécifie les comptes impliqués dans une transaction et leur rôle (*par exemple, compte source, compte destinataire, compte d'état du contrat, etc.*).
+
+**TO DO**
+
+### Visibilité avec Rust & Anchor
+
+**TO DO**
+
+### Exemple avec Rust & Anchor
+
+**TO DO**
 
 
-## 
+## Conclusion
+
+**TO DO**
+
+
+## Ressources additionnelles
+
+- **Blockchains :**
+  - 🇬🇧 [Home | ethereum.org](https://ethereum.org)
+  - 🇬🇧 [Web3 Infrastructure for Everyone | Solana](https://solana.com/)
+
+- **Solidity :**
+  - 🇬🇧 [Home | Solidity Programming Language](https://soliditylang.org/)
+  - 🇬🇧 [Solidity - Wikipedia](https://en.wikipedia.org/wiki/Solidity)
+  - 🇫🇷 [Solidity — Wikipédia](https://fr.wikipedia.org/wiki/Solidity)
+  - 🇫🇷 [Solidity — Documentation Solidity (latest)](https://solidity-fr.readthedocs.io/fr/latest/)
+
+- **Rust :**
+  - 🇬🇧 [Rust Programming Language](https://www.rust-lang.org/)
+  - 🇬🇧 [Rust (programming language) - Wikipedia](https://en.wikipedia.org/wiki/Rust_(programming_language))
+  - 🇫🇷 [Rust (langage) — Wikipédia](https://fr.wikipedia.org/wiki/Rust_(langage))
+
+- **Anchor :**
+  - 🇬🇧 [Anchor - Introduction](https://www.anchor-lang.com/)
+  - 🇬🇧 [Anchor By Example - Introduction](https://examples.anchor-lang.com/)
+  - 🇬🇧 [GitHub - coral-xyz/anchor: ⚓ Solana Sealevel Framework](https://github.com/coral-xyz/anchor)
+
+- **Seahorse :**
+  - 🇬🇧 [Seahorse (Beta) | Solana programs in Python](https://seahorse-lang.org/)
+  - 🇬🇧 [How to Write Solana Programs in Python Using Seahorse](https://www.alchemy.com/overviews/solana-seahorse)
+
+- **Sandbox :**
+  - 🇬🇧 [Remix - Ethereum IDE](https://remix.ethereum.org/)
+  - 🇬🇧 [Solana Playground | Solana IDE](https://beta.solpg.io/)
+
