@@ -44,29 +44,67 @@ Voici les différents niveaux de visibilité disponibles pour les fonctions en *
 ### Exemple en Solidity
 
 ```solidity
-contract MainContract {
+// SPDX-License-Identifier: GPL-3.0
 
-    function publicFunction() public {
-        // Code de la fonction
+pragma solidity >=0.8.2 <0.9.0;
+
+// Contract A
+contract ContractA {
+    // Variable d'état publique
+    uint256 public publicVariable;
+
+    // Variable d'état privée
+    uint256 private privateVariable;
+
+    // Constructeur du contrat
+    constructor(uint256 _initialValue) {
+        publicVariable = _initialValue;
+        privateVariable = _initialValue;
     }
 
-    function privateFunction() private {
-        // Code de la fonction
+    // Fonction publique
+    function publicFunction() public returns (uint256) {
+        return publicVariable;
     }
 
-    function internalFunction() internal {
-        // Code de la fonction
+    // Fonction privée
+    function privateFunction() private returns (uint256) {
+        return privateVariable;
     }
 
-    function externalFunction() external {
-        // Code de la fonction
+    // Fonction externe
+    function externalFunction() external returns (uint256) {
+        // Appel de la fonction privée à partir d'une fonction publique
+        return privateFunction();
     }
+
+    // Fonction interne
+    function internalFunction() internal returns (uint256) {
+        return privateVariable;
+    }
+
 }
 
-contract OtherContract {
-    // TO DO
-}
+// Contract B
+contract ContractB {
+    // Déclaration d'une instance du contrat A
+    ContractA instanceOfContractA;
 
+    // Fonction publique qui appelle une fonction publique du contrat A
+    function usePublicFunctionContractA() public returns (uint256) {
+        // Création d'une nouvelle instance du contrat A
+        instanceOfContractA = new ContractA(10);
+        // Appel de la fonction publique du contrat A
+        return instanceOfContractA.publicFunction();
+    }
+
+//    // Fonction publique qui appelle une fonction interne du contrat A
+//    function useInternalFunctionContractA() public returns (uint256) {
+//        // Appel de la fonction interne du contrat A
+//        return instanceOfContractA.internalFunction(); // Erreur de compilation : internalFunction n'est pas visible ici
+//    }
+
+}
 ```
 
 En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont accessibles et utilisables, ce qui contribue à la **sécurité** et à la **clarté** du contrat.
