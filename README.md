@@ -107,7 +107,7 @@ contract ContractB {
 }
 ```
 
-En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont accessibles et utilisables, ce qui contribue à la **sécurité** et à la **clarté** du contrat.
+En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont [**accessibles**](assets/outside_contracts.png) et [**utilisables**](assets/abi.json), ce qui contribue à la **sécurité** et à la **clarté** du contrat.
 
 
 ## Rust & Anchor
