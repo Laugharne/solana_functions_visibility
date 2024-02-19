@@ -6,9 +6,9 @@
 ## TL;DR
 
 1. Cet article vous fournira une introduction à la visibilité des fonctions des smart contracts en Rust sur Solana.
-2. Une comparaison sera faite avec Solidity sur Ethereum.
+2. Une comparaison sera faite entre Rust & Anchor sur Solana et Solidity sur Ethereum.
 3. Les fonctions des smart-contracts définissent le comportement et les fonctionnalités d'un contrat sur une blockchain.
-3. La visibilité des fonctions détermine comment elles peuvent être appelées depuis l'intérieur ou l'extérieur d'une blockchain.
+3. La visibilité des fonctions spécifie comment elles seront appelées depuis l'intérieur ou l'extérieur d'une blockchain.
 
 
 ## Introduction
@@ -77,7 +77,7 @@ En choisissant le niveau de visibilité approprié pour chaque fonction, les dé
 Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fonctions des smart contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir sur les fonctions des smart contracts en Rust avec Anchor :
 
 1. **Déclaration :** Les fonctions sont définies à l'intérieur d'une structure de contrat Solana et annotées avec des attributs spécifiques à Anchor.
-2. **Attributs spécifiques à Anchor :** Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
+2. **Attributs spécifiques :** Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
 3. **Fonctions d'instruction :** Les fonctions marquées avec l'attribut `#[instruction]` sont des instructions du contrat Solana qui peuvent être appelées depuis l'extérieur de la chaîne. Elles définissent les fonctionnalités et les actions du contrat.
 4. **Fonctions de vérification :** Les fonctions de vérification sont utilisées pour valider les transactions et peuvent être marquées avec l'attribut `#[instruction]` pour indiquer qu'elles sont appelées en tant qu'instructions, ou avec l'attribut `#[guard]` pour indiquer qu'elles sont utilisées pour la validation uniquement.
 5. **Gestion des comptes :** Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]`, qui spécifie les comptes impliqués dans une transaction et leur rôle (*par exemple, compte source, compte destinataire, compte d'état du contrat, etc.*).
