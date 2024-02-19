@@ -22,7 +22,7 @@ Pour simplifier la compréhension, nous établirons un parallèle avec les contr
 
 ## Solidity
 
-Les fonctions des smart contracts en **Solidity** sont des blocs de code qui définissent le comportement et les fonctionnalités d'un contrat sur la blockchain **Ethereum**. Voici quelques points clés à savoir sur les fonctions des smart contracts en Solidity :
+Les fonctions des smart contracts en [**Solidity**](https://soliditylang.org/) (🇬🇧) sont des blocs de code qui définissent le comportement et les fonctionnalités d'un contrat sur la blockchain **Ethereum**. Voici quelques points clés à savoir sur les fonctions des smart contracts en Solidity :
 
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
 - **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées depuis l'extérieur du contrat.
@@ -112,7 +112,7 @@ En choisissant le niveau de visibilité approprié pour chaque fonction, les dé
 
 ## Rust & Anchor
 
-Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fonctions des smart contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir sur les fonctions des smart contracts en Rust avec Anchor :
+Dans [**Rust**](https://www.rust-lang.org/) (🇬🇧) avec le framework [**Anchor**](https://www.anchor-lang.com/) (🇬🇧) pour la blockchain **Solana**, les fonctions des smart contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir sur les fonctions des smart contracts en Rust avec Anchor :
 
 - **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de contrat Solana et annotées avec des attributs spécifiques à Anchor.
 - **Attributs spécifiques** : Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
@@ -136,6 +136,8 @@ Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fo
 ## Conclusion
 
 **TO DO**
+
+**Note** : Rust, n'est pas le seul langage qui permette de  définir des smart-contracts sur la blockchain Solana. [**Seahorse**](https://seahorse-lang.org/) (🇬🇧), par exemple permet de programmer des contrats en langage [**Python**](https://www.python.org/) (🇬🇧). Seahorse est construit s'appuie sur Anchor ainsi que sur d'autres crates (*Rust packages*).
 
 
 ## Ressources additionnelles
@@ -162,7 +164,7 @@ Dans **Rust** avec le framework **Anchor** pour la blockchain **Solana**, les fo
 
 - **Seahorse :**
   - 🇬🇧 [Seahorse (Beta) | Solana programs in Python](https://seahorse-lang.org/)
-  - 🇬🇧 [How to Write Solana Programs in Python Using Seahorse](https://www.alchemy.com/overviews/solana-seahorse)
+  - 🇬🇧 [Solana Bytes - Intro to Seahorse - YouTube](https://www.youtube.com/watch?v=Wt3kcIb98Do)
 
 - **Sandbox :**
   - 🇬🇧 [Remix - Ethereum IDE](https://remix.ethereum.org/)
