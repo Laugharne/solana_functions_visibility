@@ -22,7 +22,7 @@ Pour simplifier la compréhension, nous établirons un parallèle avec les contr
 
 ## Solidity
 
-Les fonctions des smart-contracts en [**Solidity**](https://soliditylang.org/) (🇬🇧) sont des blocs de code qui définissent le comportement et les fonctionnalités d'un contrat sur la blockchain **Ethereum**. Voici quelques points clés à savoir sur les fonctions des smart-contracts en Solidity :
+Les fonctions des smart-contracts en [**Solidity**](https://soliditylang.org/) (🇬🇧) sont des blocs de code qui définissent le comportement et les fonctionnalités d'un contrat sur la blockchain **Ethereum**. Voici quelques points clés à savoir à ce sujet :
 
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
 - **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées depuis l'extérieur du contrat.
@@ -112,7 +112,7 @@ En choisissant le niveau de visibilité approprié pour chaque fonction, les dé
 
 ## Rust & Anchor
 
-Dans [**Rust**](https://www.rust-lang.org/) (🇬🇧) avec le framework [**Anchor**](https://www.anchor-lang.com/) (🇬🇧) pour la blockchain **Solana**, les fonctions des smart-contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir sur les fonctions des smart-contracts en Rust avec Anchor :
+Dans [**Rust**](https://www.rust-lang.org/) (🇬🇧) avec le framework [**Anchor**](https://www.anchor-lang.com/) (🇬🇧) pour la blockchain **Solana**, les fonctions des smart-contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor. Voici quelques points clés à savoir :
 
 - **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de contrat Solana et annotées avec des attributs spécifiques à Anchor.
 - **Attributs spécifiques** : Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
