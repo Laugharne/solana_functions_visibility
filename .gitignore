@@ -1,0 +1,13 @@
+playground/sol_node/
+*history.log
+**/target/
+**/node_modules/
+
+
+.anchor
+.DS_Store
+target/
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn

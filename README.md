@@ -1,4 +1,4 @@
-# Visibilité des Fonctions des smart-contracts en Rust sur Solana
+# Visibilité des Fonctions de smart-contracts en Rust sur Solana
 
 ![](assets/pexels-james-frid-901974.jpg)
 (*Photo : James Frid - [Pexels](https://www.pexels.com/fr-fr/photo/telescope-gris-et-or-sur-batiment-901974/)*)
