@@ -5,7 +5,7 @@
 
 ## TL;DR
 
-1. Cet article sert de pense-bête sur la visibilité des fonctions des smart-contracts sur Solana.
+1. Cet article sert de pense-bête sur la visibilité des fonctions des smart-contracts Solana.
 2. Une comparaison sera faite entre Rust & Anchor sur Solana et Solidity sur Ethereum.
 3. Les fonctions des smart-contracts définissent le comportement et les fonctionnalités d'un contrat sur une blockchain.
 3. La visibilité des fonctions spécifie comment elles seront appelées depuis l'intérieur ou l'extérieur d'une blockchain.
@@ -44,7 +44,7 @@ Voici un récapitulatif des différents niveaux de visibilité disponibles pour 
 
 --------
 
-- **Public (`public`)** : Accessible de l'**intérieur** du contrat et de l'**extérieur**.
+- **Public (`public`)** : Accessible de l'**intérieur** et de l'**extérieur** du contrat.
 - **Externe (`external`)** : Accessible **uniquement** depuis l'**extérieur** du contrat.
 - **Interne (`internal`)** : Accessible de l'**intérieur** du contrat et aux contrats **hérités**.
 - **Privé (`private`)** : Accessible **uniquement** de l'**intérieur** du contrat.
@@ -144,12 +144,14 @@ En **Rust** avec **Anchor**, une fonction est publique de par le mot clef `pub` 
 
 `mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) est une collection d'éléments divers et variés.
 
-Le module (`mod`) se doit d'être "estampillé" avec la **macro-attribut** `#[program]` [**définie**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html)  par le framework Anchor, permetant au module de fonctionner comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "estampillé" avec la **macro-attribut** `#[program]` [**définie**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
+// ...
+
 #[program]
-pub mod visibility {
+pub mod contract {
     use super::*;
 
     pub fn public_function(ctx: Context<Initialize>) -> Result<()> {
@@ -157,11 +159,115 @@ pub mod visibility {
         Ok(())
     }
 }
+
+// ...
 ```
 
 #### Interne / Privé
 
+- Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas orienté objet (*même si une approche objet est possible et convaincante*).
+- Par conséquent, la distinction entre "private" et "internal" ne peux être directement applicable à Rust.
+
+Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) par rapport aux modules existe bien, mais il nous faut y porter un regard différend lié au contexte de Solana.
+
+> **Interne et privé** sont des visibilités antagonistes à **public et externe**.
+
+Elles dépendent de deux choses:
+- Leurs liens avec les modules (`mod`)
+- Et si le module est destiné à être un contrat (`#[program]`).
+
+##### Interne
+
+Si on veut une analogie pratique avec `internal` de Solidity, elle peut être obtenue en définissant la fonction à l'intérieur du module du programme et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur.
+
+```rust
+// ...
+
+#[program]
+pub mod contract {
+    use super::*;
+
+    pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
+        // ...
+        internal::internal_function();
+        // ...
+        Ok(())
+    }
+
+    pub mod internal {
+        pub fn internal_function() {
+            // ...
+        }
+    }
+}
+
+mod other_module {
+    use crate::contract;
+
+    pub fn function() {
+        // ...
+        contract::internal::internal_function();
+        // ...
+    }
+}
+
+// ...
+```
 **TO DO**
+
+##### Privé
+
+```rust
+// ...
+
+#[program]
+pub mod contract {
+    use super::*;
+
+    pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
+        // ...
+        private::private_function();
+        // ...
+        Ok(())
+    }
+
+    pub mod private {
+        pub(in crate::contract) fn private_function() {
+            // ...
+        }
+    }
+}
+
+mod other_module {
+    use crate::contract;
+
+    pub fn function() {
+        // ...
+        contract::private::private_function();
+        // ...
+    }
+}
+
+// ...
+```
+
+```bash
+error[E0603]: function `private_function` is private
+  --> programs/visibility/src/lib.rs:39:28
+   |
+39 |         contract::private::private_function();
+   |                            ^^^^^^^^^^^^^^^^ private function
+   |
+note: the function `private_function` is defined here
+  --> programs/visibility/src/lib.rs:26:9
+   |
+26 |         pub(in crate::contract) fn private_function() {
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
+
+
+**TO DO**
+
 
 ### Exemple avec Rust & Anchor
 
@@ -169,6 +275,30 @@ pub mod visibility {
 ```rust
 // TODO
 ``` 
+
+On retrouve avec Anchor l'équivalent des données ABI de Solidity. Il s'agit des données **IDL** (*Interface Description Language*) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes. Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes.
+
+```json
+{
+  "version": "0.1.0",
+  "name": "contract",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [],
+      "args": []
+    },
+    {
+      "name": "publicFunction",
+      "accounts": [],
+      "args": []
+    }
+  ]
+}
+```
+
+**À noter** : les noms de fonctions et de projets dans le code source Rust suivent la notation **snake case**, par contre ceux-ci se trouvent "*transformés*" en **lowerCamelCase** dans les données l'IDL et dans le code typescript utilisé pour les unités de tests (extérieures).
+
 
 
 ## En résumé
