@@ -136,7 +136,7 @@ Voici quelques éléments clés à savoir :
 
 > La **distinction** entre public et externe **n'existe pas** avec Anchor.
 
-Si cette distinction existe avec Solidity, elle est uniquement liée au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
+Si cette distinction existe avec Solidity, elle est liée au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
 En **Rust** avec **Anchor**, une fonction est **publique** de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
@@ -213,7 +213,7 @@ mod other_module {
 ```
 ##### Privé
 
-L'analogie du `private` de Solidity peut être obtenue en définissant la fonction à l'intérieur du module du contrat et en faisant en sorte à ce qu'elle soit **inaccessible de l'extérieur du module** originel.
+L'analogie au `private` de Solidity peut être obtenue en définissant la fonction à l'intérieur du module du contrat et en faisant en sorte à ce qu'elle soit **inaccessible de l'extérieur du module**.
 
 ```rust
 // ...
@@ -265,7 +265,7 @@ note: the function `private_function` is defined here
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-Qui est ce que nous voulions obtenir:
+Qui est ce que nous voulions obtenir.
 - La fonction `private_function()` est bien inacessible à la compilation, car hors du module.
 - Le compilateur la considére bien comme privée.
 
@@ -348,21 +348,25 @@ On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agi
 }
 ```
 
-**Attention :** Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en [**lowerCamelCase**](https://www.techtarget.com/whatis/definition/lowerCamelCase) (🇬🇧) dans les données l'**IDL** et dans le code **typescript** utilisé pour les unités de test clientes.
+**Attention :** Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en [**lowerCamelCase**](https://www.techtarget.com/whatis/definition/lowerCamelCase) (🇬🇧) dans les données l'**IDL** et dans le code **TypeScript** utilisé pour les unités de test clientes.
 
 `public_function` ➔ `publicFunction`
 
 
 ## Conclusion
 
-Toutes ces différentes visibilités permettent de définir l'interface avec l'extérieur d'un contrat (`public`/`external`) protégeant ainsi des accès malvenus, mais aussi de mieux structurer et clarifier le code (`internal`/`private`) !
+Faisont un parallèle entre langages-objets et smart-contrat :
+- Dans les **langages-objet** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes. Favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
+- Dans le contexte des **smart-contracts** - notamment sur Ethereum et Solana - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, assurant confidentialité des données, sécurité et définir des interfaces claires pour les interactions.
 
-**En résumé :**
+En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts de Solidity vers Ethereum.
+
+Pour résumer, si on veut essayer de transposer les visibilités de Solidity vers Rust :
 - **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut**, **publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
 - **Internes** : Accessibles à l'intérieur du programme lui-même et aux programmes qui en héritent. Les fonctions à l'intérieur d'un bloc `pub mod` imbriqué ne sont pas incluses dans le programme construit, mais elles peuvent toujours être accessibles à l'intérieur ou à l'extérieur du module parent.
 - **Privées** : Elles ne sont pas accessibles publiquement et ne peuvent pas être invoquées depuis l'extérieur de leur module. Pour obtenir cette visibilité privée en Rust/Solana, il faut définir une fonction dans un module spécifique avec le mot-clé `pub` (*dans `crate::<module>`*), ce qui la rend visible uniquement dans le module où elle a été définie.
 
-**Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧), par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
+**Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
 
 
 --------
