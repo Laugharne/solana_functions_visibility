@@ -3,6 +3,7 @@
 ![](assets/pexels-james-frid.jpg)
 (*Photo : James Frid - [Pexels](https://www.pexels.com/fr-fr/photo/telescope-gris-et-or-sur-batiment-901974/)*)
 
+
 ## TL;DR
 
 1. Cet article sert de pense-bête sur la visibilité des fonctions des smart-contracts Solana.
