@@ -350,13 +350,13 @@ On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agi
 
 **Attention :** Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en [**lowerCamelCase**](https://www.techtarget.com/whatis/definition/lowerCamelCase) (🇬🇧) dans les données l'**IDL** et dans le code **typescript** utilisé pour les unités de test clientes.
 
-`internal_function` ➔ `internalFunction`
+`public_function` ➔ `publicFunction`
 
 
 ## Conclusion
 
 **TO DO**
-
+structurer, clarifier le code et protéger des accès malvenus !
 
 **En résumé :**
 - **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut**, **publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
