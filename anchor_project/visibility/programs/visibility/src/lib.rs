@@ -7,6 +7,7 @@ pub mod contract {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        internal::internal_function();
         private::private_function();
         Ok(())
     }
