@@ -120,31 +120,29 @@ En choisissant le niveau de visibilité approprié pour chaque fonction, les dé
 
 ## Rust & Anchor
 
-Dans [**Rust**](https://www.rust-lang.org/) (🇬🇧) avec le framework [**Anchor**](https://www.anchor-lang.com/) (🇬🇧) pour la blockchain **Solana**, les fonctions des smart-contracts sont définies à l'aide du langage Rust et de la bibliothèque Anchor.
+Avec la blockchain **Solana**, les fonctions des smart-contracts sont définies à l'aide du langage [**Rust**](https://www.rust-lang.org/) (🇬🇧) et du framework [**Anchor**](https://www.anchor-lang.com/) (🇬🇧).
 
 Voici quelques éléments clés à savoir :
 
-- **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de contrat Solana et annotées avec des attributs spécifiques à Anchor.
+- **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de données définissant le smart-contrat Solana et annotées avec des attributs spécifiques à Anchor.
 - **Attributs spécifiques** : Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
 - **Fonctions d'instruction** : Les fonctions marquées avec l'attribut `#[instruction]` sont des instructions du contrat Solana qui peuvent être appelées depuis l'extérieur de la chaîne. Elles définissent les fonctionnalités et les actions du contrat.
 - **Fonctions de vérification** : Les fonctions de vérification sont utilisées pour valider les transactions et peuvent être marquées avec l'attribut `#[instruction]` pour indiquer qu'elles sont appelées en tant qu'instructions, ou avec l'attribut `#[guard]` pour indiquer qu'elles sont utilisées pour la validation uniquement.
 - **Gestion des comptes** : Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]`, qui spécifie les comptes impliqués dans une transaction et leur rôle (*par exemple, compte source, compte destinataire, compte d'état du contrat, etc.*).
 
-**TO DO**
-
 ### Visibilité avec Rust & Anchor
 
 #### Public / Externe
 
-**La distinction entre public et externe n'existe pas avec Anchor**.
+> La **distinction** entre public et externe **n'existe pas** avec Anchor.
 
-Si cette distinction existe avec Solidity, elle est uniquement liée au compilateur. Elle sert principalement à l'organisation du code et en limitant l'accès via le mot-clé `external`.
+Si cette distinction existe avec Solidity, elle est uniquement liée au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
-En **Rust** avec **Anchor**, une fonction est publique de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
+En **Rust** avec **Anchor**, une fonction est **publique** de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
 `mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est une collection d'éléments divers et variés.
 
-Le module (`mod`) doit d'être "estampillé" avec la **macro-attribut** `#[program]` [**définie**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "estampillé" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
@@ -165,7 +163,7 @@ pub mod contract {
 
 #### Interne / Privé
 
-- Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas orienté objet (*même si une approche objet est possible et convaincante*).
+- Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - Par conséquent, la distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
 Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différend lié au contexte de Solana.
@@ -178,7 +176,7 @@ Elles dépendent de deux éléments :
 
 ##### Interne
 
-Si on veut obtenir un équivalent pratique du `internal` de Solidity, cela peut être obtenu en définissant la fonction à l'intérieur du module du programme et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur.
+Si on veut obtenir un équivalent pratique du `internal` de Solidity, cela peut être obtenu en définissant la fonction à l'intérieur du module du contrat et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur de ce dernier.
 
 ```rust
 // ...
@@ -215,7 +213,7 @@ mod other_module {
 ```
 ##### Privé
 
-L'analogie du `private` de Solidity peut être obtenue en définissant la fonction à l'intérieur du module du programme et en faisant en sorte à ce qu'elle soit **inaccessible de l'extérieur du module** originel.
+L'analogie du `private` de Solidity peut être obtenue en définissant la fonction à l'intérieur du module du contrat et en faisant en sorte à ce qu'elle soit **inaccessible de l'extérieur du module** originel.
 
 ```rust
 // ...
@@ -267,12 +265,14 @@ note: the function `private_function` is defined here
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-Qui est ce que nous voulions obtenir, la fonction `private_function()` est bien inacessible à la compilation.
+Qui est ce que nous voulions obtenir:
+- La fonction `private_function()` est bien inacessible à la compilation, car hors du module.
+- Le compilateur la considére bien comme privée.
 
 
 ### Exemple avec Rust & Anchor
 
-Le programme ci dessous, résume la définition des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
+Le programme ci dessous, résume l'obtention des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
 
 ```rust
 use anchor_lang::prelude::*;
@@ -355,8 +355,7 @@ On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agi
 
 ## Conclusion
 
-**TO DO**
-structurer, clarifier le code et protéger des accès malvenus !
+Toutes ces différentes visibilités permettent de définir l'interface avec l'extérieur d'un contrat (`public`/`external`) protégeant ainsi des accès malvenus, mais aussi de mieux structurer et clarifier le code (`internal`/`private`) !
 
 **En résumé :**
 - **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut**, **publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
