@@ -1,6 +1,6 @@
 # Solana / Ethereum : Visibilité des fonctions
 
-![](assets/pexels-james-frid-901974.jpg)
+![](assets/pexels-james-frid.jpg)
 (*Photo : James Frid - [Pexels](https://www.pexels.com/fr-fr/photo/telescope-gris-et-or-sur-batiment-901974/)*)
 
 ## TL;DR
@@ -115,7 +115,7 @@ contract ContractB {
 }
 ```
 
-En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont [**accessibles**](assets/outside_contracts.png) (*Remix*) et [**utilisables**](assets/abi.json) (*ABI*), ce qui contribue à la **sécurité** et à la **clarté** du contrat.
+En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont [**accessibles**](assets/outside_contracts.png) (*Remix*) et [**utilisables**](assets/abi.json) (*ABI*  🇬🇧), ce qui contribue à la **sécurité** et à la **clarté** du contrat.
 
 
 ## Rust & Anchor
@@ -140,11 +140,11 @@ Voici quelques éléments clés à savoir :
 
 Si cette distinction existe avec Solidity, elle est uniquement liée au compilateur. Elle sert principalement à l'organisation du code et en limitant l'accès via le mot-clé `external`.
 
-En **Rust** avec **Anchor**, une fonction est publique de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) depuis l'extérieur du module qui la définit.
+En **Rust** avec **Anchor**, une fonction est publique de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
-`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) est une collection d'éléments divers et variés.
+`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est une collection d'éléments divers et variés.
 
-Le module (`mod`) doit d'être "estampillé" avec la **macro-attribut** `#[program]` [**définie**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "estampillé" avec la **macro-attribut** `#[program]` [**définie**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
@@ -168,17 +168,17 @@ pub mod contract {
 - Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas orienté objet (*même si une approche objet est possible et convaincante*).
 - Par conséquent, la distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
-Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) par rapport aux modules existe bien, mais il nous faut y porter un regard différend lié au contexte de Solana.
+Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différend lié au contexte de Solana.
 
 > **Interne et privé** sont des visibilités antagonistes à **public et externe**.
 
-Elles dépendent de deux choses:
+Elles dépendent de deux éléments :
 - Leurs liens avec les modules (`mod`)
 - Et si le module est destiné à être un contrat (`#[program]`).
 
 ##### Interne
 
-Si on veut une analogie pratique avec `internal` de Solidity, elle peut être obtenue en définissant la fonction à l'intérieur du module du programme et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur.
+Si on veut obtenir un équivalent pratique du `internal` de Solidity, cela peut être obtenu en définissant la fonction à l'intérieur du module du programme et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur.
 
 ```rust
 // ...
@@ -213,9 +213,9 @@ mod other_module {
 
 // ...
 ```
-**TO DO**
-
 ##### Privé
+
+L'analogie du `private` de Solidity peut être obtenue en définissant la fonction à l'intérieur du module du programme et en faisant en sorte à ce qu'elle soit **inaccessible de l'extérieur du module** originel.
 
 ```rust
 // ...
@@ -251,6 +251,8 @@ mod other_module {
 // ...
 ```
 
+Si on lance une compilation via la **commande `anchor build`**, on obtiendra l'erreur suivante :
+
 ```bash
 error[E0603]: function `private_function` is private
   --> programs/visibility/src/lib.rs:39:28
@@ -265,18 +267,66 @@ note: the function `private_function` is defined here
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-
-**TO DO**
+Qui est ce que nous voulions obtenir, la fonction `private_function()` est bien inacessible à la compilation.
 
 
 ### Exemple avec Rust & Anchor
 
-**TO DO**
+Le programme ci dessous, résume la définition des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
+
 ```rust
-// TODO
+use anchor_lang::prelude::*;
+
+declare_id!("5gxeL3AFd6utfoUjuRxRHyFbujXEZuUdFonBXNwaas64");
+
+#[program]
+pub mod contract {
+    use super::*;
+
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        private::private_function();
+        Ok(())
+    }
+
+    pub fn public_function(ctx: Context<Initialize>) -> Result<()> {
+        // ...
+        Ok(())
+    }
+
+    pub mod internal {
+        pub fn internal_function() {
+            // ...
+        }
+    }
+
+    pub mod private {
+        pub(in crate::contract) fn private_function() {
+            // ...
+        }
+    }
+
+}
+
+mod other_module {
+    use crate::contract;
+
+    pub fn function() {
+        // ...
+        contract::internal::internal_function();
+        //contract::private::private_function();
+        // error[E0603]: function `private_function` is private
+        // ...
+    }
+}
+
+#[derive(Accounts)]
+pub struct Initialize {}
 ``` 
 
-On retrouve avec Anchor l'équivalent des données ABI de Solidity. Il s'agit des données **IDL** (*Interface Description Language*) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes. Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes.
+On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agit des données [**IDL** (*Interface Description Language*)](https://fr.wikipedia.org/wiki/Interface_Description_Language) (🇫🇷) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes. Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes.
+
+![](assets/anchor-client-structure.png)
+(*Source : [SolDev - Intro to client-side Anchor development](https://www.soldev.app/course/intro-to-anchor-frontend)*)
 
 ```json
 {
@@ -297,21 +347,20 @@ On retrouve avec Anchor l'équivalent des données ABI de Solidity. Il s'agit de
 }
 ```
 
-**À noter** : les noms de fonctions et de projets dans le code source Rust suivent la notation **snake case**, par contre ceux-ci se trouvent "*transformés*" en **lowerCamelCase** dans les données l'IDL et dans le code typescript utilisé pour les unités de tests (extérieures).
+**À noter** : Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en **lowerCamelCase** dans les données l'**IDL** et dans le code **typescript** utilisé pour les unités de tests (*extérieures*).
 
 
-
-## En résumé
+## Conclusion
 
 **TO DO**
 
+
+**En résumé :**
 - **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut**, **publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
 - **Internes** : Accessibles à l'intérieur du programme lui-même et aux programmes qui en héritent. Les fonctions à l'intérieur d'un bloc `pub mod` imbriqué ne sont pas incluses dans le programme construit, mais elles peuvent toujours être accessibles à l'intérieur ou à l'extérieur du module parent.
 - **Privées** : Elles ne sont pas accessibles publiquement et ne peuvent pas être invoquées depuis l'extérieur de leur module. Pour obtenir cette visibilité privée en Rust/Solana, il faut définir une fonction dans un module spécifique avec le mot-clé `pub` (*dans `crate::<module>`*), ce qui la rend visible uniquement dans le module où elle a été définie.
 
-**TO DO**
-
-**Note** : Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. [**Seahorse**](https://seahorse-lang.org/) (🇬🇧), par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
+**Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧), par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
 
 
 --------
@@ -330,21 +379,30 @@ N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medi
   - 🇬🇧 [Web3 Infrastructure for Everyone | Solana](https://solana.com/)
 
 - **Solidity :**
-  - 🇬🇧 [Home | Solidity Programming Language](https://soliditylang.org/)
-  - 🇬🇧 [Solidity - Wikipedia](https://en.wikipedia.org/wiki/Solidity)
   - 🇫🇷 [Solidity — Wikipédia](https://fr.wikipedia.org/wiki/Solidity)
   - 🇫🇷 [Solidity — Documentation Solidity (latest)](https://solidity-fr.readthedocs.io/fr/latest/)
+  - 🇬🇧 [Home | Solidity Programming Language](https://soliditylang.org/)
+  - 🇬🇧 [Solidity - Wikipedia](https://en.wikipedia.org/wiki/Solidity)
 
 - **Rust :**
+  - 🇫🇷 [Rust (langage) — Wikipédia](https://fr.wikipedia.org/wiki/Rust_(langage))
+  - 🇬🇧 [Rust (programming language) - Wikipedia](https://en.wikipedia.org/wiki/Rust_(programming_language))
   - 🇬🇧 [Rust Programming Language](https://www.rust-lang.org/)
   - 🇬🇧 [Visibility and privacy - The Rust Reference](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html)
-  - 🇬🇧 [Rust (programming language) - Wikipedia](https://en.wikipedia.org/wiki/Rust_(programming_language))
-  - 🇫🇷 [Rust (langage) — Wikipédia](https://fr.wikipedia.org/wiki/Rust_(langage))
+  - 🇬🇧 [pub - Rust](https://doc.rust-lang.org/std/keyword.pub.html)
+  - 🇬🇧 [mod - Rust](https://doc.rust-lang.org/std/keyword.mod.html)
 
 - **Anchor :**
   - 🇬🇧 [Anchor - Introduction](https://www.anchor-lang.com/)
   - 🇬🇧 [Anchor By Example - Introduction](https://examples.anchor-lang.com/)
+  - 🇬🇧 [program in anchor_lang - Rust](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html)
   - 🇬🇧 [GitHub - coral-xyz/anchor: ⚓ Solana Sealevel Framework](https://github.com/coral-xyz/anchor)
+
+- **IDL :**
+  - 🇫🇷 [Interface Description Language — Wikipédia](https://fr.wikipedia.org/wiki/Interface_Description_Language)
+  - 🇬🇧 [Interface description language - Wikipedia](https://en.wikipedia.org/wiki/Interface_description_language)
+  - 🇬🇧 [What is an IDL?](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl)
+  - 🇬🇧 [SolDev - Intro to client-side Anchor development](https://www.soldev.app/course/intro-to-anchor-frontend)
 
 - **Seahorse :**
   - 🇬🇧 [Seahorse (Beta) | Solana programs in Python](https://seahorse-lang.org/)
