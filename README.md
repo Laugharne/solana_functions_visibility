@@ -325,11 +325,14 @@ mod other_module {
 pub struct Initialize {}
 ``` 
 
-On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agit des données [**IDL** (*Interface Description Language*)](https://fr.wikipedia.org/wiki/Interface_Description_Language) (🇫🇷) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes. Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes.
+On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agit des données [**IDL** (*Interface Description Language*)](https://fr.wikipedia.org/wiki/Interface_Description_Language) (🇫🇷) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes.
+
+Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes. Ces données au format [**JSON**](https://www.json.org/json-fr.html) sont générées lors du build du projet solana.
 
 ![](assets/anchor-client-structure.png)
 (*Source : [SolDev - Intro to client-side Anchor development](https://www.soldev.app/course/intro-to-anchor-frontend)*)
 
+Fichier : "*contract.json*"
 ```json
 {
   "version": "0.1.0",
