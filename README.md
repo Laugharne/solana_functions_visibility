@@ -115,7 +115,7 @@ contract ContractB {
 }
 ```
 
-En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont [**accessibles**](assets/outside_contracts.png) (*Remix*) et [**utilisables**](assets/abi.json) (*ABI*  🇬🇧), ce qui contribue à la **sécurité** et à la **clarté** du contrat.
+En choisissant le niveau de visibilité approprié pour chaque fonction, les développeurs peuvent contrôler comment ces fonctions sont [**accessibles**](assets/outside_contracts.png) (*Remix*) et [**utilisables**](assets/abi.json) (*ABI*), ce qui contribue à la **sécurité** et à la **clarté** du contrat.
 
 
 ## Rust & Anchor
@@ -313,7 +313,7 @@ mod other_module {
     pub fn function() {
         // ...
         contract::internal::internal_function();
-        //contract::private::private_function();
+        contract::private::private_function();
         // error[E0603]: function `private_function` is private
         // ...
     }
@@ -347,7 +347,9 @@ On retrouve avec Anchor l'équivalent des données **ABI** de Solidity. Il s'agi
 }
 ```
 
-**À noter** : Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en **lowerCamelCase** dans les données l'**IDL** et dans le code **typescript** utilisé pour les unités de tests (*extérieures*).
+**Attention :** Les noms de fonctions et de projets suivent la convention de notation de Rust, le **snake_case**, par contre ceux-ci se trouvent "*transformés*" en [**lowerCamelCase**](https://www.techtarget.com/whatis/definition/lowerCamelCase) (🇬🇧) dans les données l'**IDL** et dans le code **typescript** utilisé pour les unités de test clientes.
+
+`internal_function` ➔ `internalFunction`
 
 
 ## Conclusion
@@ -412,3 +414,9 @@ N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medi
   - 🇬🇧 [Remix - Ethereum IDE](https://remix.ethereum.org/)
   - 🇬🇧 [Solana Playground | Solana IDE](https://beta.solpg.io/)
 
+- **Convention de nommage :**
+  - 🇫🇷 [Snake case — Wikipédia](https://fr.wikipedia.org/wiki/Snake_case)
+  - 🇫🇷 [Camel case — Wikipédia](https://fr.wikipedia.org/wiki/Camel_case)
+  - 🇬🇧 [Snake case - Wikipedia](https://en.wikipedia.org/wiki/Snake_case)
+  - 🇬🇧 [Camel case - Wikipedia](https://en.wikipedia.org/wiki/Camel_case)
+  - 🇬🇧 [What is the lowerCamelCase naming convention?](https://www.techtarget.com/whatis/definition/lowerCamelCase)
