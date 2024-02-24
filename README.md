@@ -20,6 +20,8 @@ Dans cet article, nous explorerons **la visibilité des fonctions des smart-cont
 
 Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, mettant en lumière les différences entre les deux approches.
 
+Si Rust est un langage très puissant et généraliste, parfaitement adapté à une variété de tâches de développement, Solidity est spécifique à l'écriture de smart-contracts, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
+
 
 ## Solidity
 
@@ -266,7 +268,7 @@ note: the function `private_function` is defined here
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
-Qui est ce que nous voulions obtenir.
+Qui est bien ce que nous voulions obtenir.
 - La fonction `private_function()` est bien inacessible à la compilation, car hors du module.
 - Le compilateur la considére bien comme privée.
 
