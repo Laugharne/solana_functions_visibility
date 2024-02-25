@@ -20,7 +20,7 @@ Dans cet article, nous explorerons **la visibilité des fonctions des smart-cont
 
 Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, mettant en lumière les différences entre les deux approches.
 
-Si Rust est un langage très puissant et généraliste, parfaitement adapté à une variété de tâches de développement, Solidity est spécifique à l'écriture de smart-contracts, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
+Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
 
 
 ## Solidity
@@ -139,13 +139,13 @@ Voici quelques éléments clés à savoir :
 
 > La **distinction** entre public et externe **n'existe pas** avec Anchor.
 
-Si cette distinction existe avec Solidity, elle est liée au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
+Si cette distinction existe avec Solidity, elle est liée à la définition faite par langage lui même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
-En **Rust** avec **Anchor**, une fonction est **publique** de par le mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
+En **Rust** avec **Anchor**, une fonction est **publique** de par l'usage du mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
-`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est une collection d'éléments divers et variés.
+`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est une regroupement d'éléments à des fins de structuration du code.
 
-Le module (`mod`) doit d'être "estampillé" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permetant au module de se déclarer comme un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "*estampillé*" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permetant de définir le module comme un contrat étant un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
@@ -368,7 +368,7 @@ Faisont un parallèle entre langages-objets et smart-contrat :
 En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts de Ethereum vers Solana.
 
 Pour résumer, si on veut essayer de traduire les visibilités de **Solidity vers Rust/Anchor** :
-- **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut**, **publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
+- **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
 - **Internes** : Accessibles à l'intérieur du programme lui-même et aux programmes qui en héritent. Les fonctions à l'intérieur d'un bloc `pub mod` imbriqué ne sont pas incluses dans le programme construit, mais elles peuvent toujours être accessibles à l'intérieur ou à l'extérieur du module parent.
 - **Privées** : Elles ne sont pas accessibles publiquement et ne peuvent pas être invoquées depuis l'extérieur de leur module. Pour obtenir cette visibilité privée en Rust/Solana, il faut définir une fonction dans un module spécifique avec le mot-clé `pub` (*dans `crate::<module>`*), ce qui la rend visible uniquement dans le module où elle a été définie.
 
