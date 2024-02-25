@@ -8,19 +8,19 @@
 
 1. Cet article sert de pense-bête sur la visibilité des fonctions des smart-contracts Solana.
 2. Une comparaison sera faite entre Rust & Anchor sur Solana et Solidity sur Ethereum.
-3. Les fonctions des smart-contracts définissent le comportement et les fonctionnalités d'un contrat sur une blockchain.
+3. Les fonctions des smart-contracts définissent le comportement et les actions d'un contrat sur une blockchain.
 3. La visibilité des fonctions spécifie comment elles seront appelées depuis l'intérieur ou l'extérieur d'une blockchain.
 
 
 ## Introduction
 
-Les smart-contracts sont au cœur de l'écosystème blockchain, offrant des fonctionnalités décentralisées et autonomes qui sous-tendent un large éventail d'applications.
+Les smart-contracts sont un élément essentiel de l'écosystème blockchain, offrant des fonctionnalités décentralisées et autonomes qui sous-tendent un large éventail d'applications.
 
 Dans cet article, nous explorerons **la visibilité des fonctions des smart-contracts en Rust sur la blockchain Solana**.
 
 Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, mettant en lumière les différences entre les deux approches.
 
-Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
+Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation pour la blockchain Ethereum.
 
 
 ## Solidity
@@ -30,11 +30,13 @@ Les fonctions des smart-contracts en [**Solidity**](https://soliditylang.org/) (
 Voici quelques points clés à connaitre à ce sujet :
 
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
-- **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées depuis l'extérieur du contrat.
+- **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées ou pas depuis l'extérieur du contrat.
+- **Mutabilité** : La mutabilité d'une fonction est définie par les mots-clés `view` (*accès aux données stockées existantes sans modification*) ou `pure` (*aucun accès ou modification*).
 - **Paramètres** : Les fonctions peuvent accepter des paramètres, qui sont des valeurs fournies lors de l'appel de la fonction. Ces paramètres peuvent être de différents types de données, tels que des entiers, des chaînes de caractères, des tableaux, etc.
 - **Valeurs de retour** : Les fonctions peuvent également renvoyer des valeurs après leur exécution. Vous pouvez spécifier le type de valeur de retour à l'aide du mot-clé `returns`.
-- **Modificateurs** : Les modificateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction. Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
+- **Décorateurs** : Les décorateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction (*mot-clef `modifier`*). Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
 - **Evenements** : Les fonctions peuvent émettre des événements à l'aide du mot-clé `emit`. Les événements sont utiles pour notifier les clients externes de l'état ou des actions importantes effectuées par le contrat.
+- **Payable** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
 
 ### Visibilité en Solidity
 
@@ -69,7 +71,7 @@ contract ContractA {
 
     // Constructeur du contrat
     constructor(uint256 _initialValue) {
-        publicVariable = _initialValue;
+        publicVariable  = _initialValue;
         privateVariable = _initialValue;
     }
 
@@ -78,15 +80,15 @@ contract ContractA {
         return publicVariable;
     }
 
-    // Fonction privée
-    function privateFunction() private returns (uint256) {
-        return privateVariable;
-    }
-
     // Fonction externe
     function externalFunction() external returns (uint256) {
         // Appel de la fonction privée à partir d'une fonction publique
         return privateFunction();
+    }
+
+    // Fonction privée
+    function privateFunction() private returns (uint256) {
+        return privateVariable;
     }
 
     // Fonction interne
@@ -131,13 +133,13 @@ Voici quelques éléments clés à savoir :
 - **Attributs spécifiques** : Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
 - **Fonctions d'instruction** : Les fonctions marquées avec l'attribut `#[instruction]` sont des instructions du contrat Solana qui peuvent être appelées depuis l'extérieur de la chaîne. Elles définissent les fonctionnalités et les actions du contrat.
 - **Fonctions de vérification** : Les fonctions de vérification sont utilisées pour valider les transactions et peuvent être marquées avec l'attribut `#[instruction]` pour indiquer qu'elles sont appelées en tant qu'instructions, ou avec l'attribut `#[guard]` pour indiquer qu'elles sont utilisées pour la validation uniquement.
-- **Gestion des comptes** : Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]`, qui spécifie les comptes impliqués dans une transaction et leur rôle (*par exemple, compte source, compte destinataire, compte d'état du contrat, etc.*).
+- **Gestion des comptes** : Anchor facilite la gestion des comptes nécessaires à l'exécution des fonctions en utilisant l'attribut `#[derive(Accounts)]` qui spécifie les comptes impliqués dans une transaction et leur rôle (*par exemple, compte source, compte destinataire, compte d'état du contrat, etc.*).
 
 ### Visibilité avec Rust & Anchor
 
-#### Public / Externe
+#### Publique / Externe
 
-> La **distinction** entre public et externe **n'existe pas** avec Anchor.
+> La **distinction** entre publique et externe **n'existe pas** avec Anchor.
 
 Si cette distinction existe avec Solidity, elle est liée à la définition faite par langage lui même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
@@ -169,7 +171,7 @@ pub mod contract {
 - Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - Par conséquent, la distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
-Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différend lié au contexte de Solana.
+Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
 
 > **Interne et privé** sont des visibilités antagonistes à **public et externe**.
 
@@ -179,7 +181,7 @@ Elles dépendent de deux éléments :
 
 ##### Interne
 
-Si on veut obtenir un équivalent pratique du `internal` de Solidity, cela peut être obtenu en définissant la fonction à l'intérieur du module du contrat et en veillant à ce qu'elle soit accessible de l'intérieur comme de l'extérieur de ce dernier.
+Pour obtenir un équivalent du `internal` de Solidity, il suffit de définir la fonction à l'intérieur du module du contrat et de la rendre accessible aussi bien à l'intérieur qu'à l'extérieur de ce module.
 
 ```rust
 // ...
@@ -281,6 +283,8 @@ Le programme ci dessous, résume l'obtention des visibilités en utilisant le la
 use anchor_lang::prelude::*;
 
 declare_id!("5gxeL3AFd6utfoUjuRxRHyFbujXEZuUdFonBXNwaas64");
+// La macro `declare_id!` dans le framework Anchor est utilisée pour déclarer
+// et générer automatiquement un identifiant unique pour un programme.
 
 #[program]
 pub mod contract {
@@ -361,16 +365,16 @@ Fichier : "*contract.json*"
 
 ## Conclusion
 
-Faisont un parallèle entre langages-objets et smart-contrat :
-- Dans les **langages-objet** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes. Favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
-- Dans le contexte des **smart-contracts** - notamment sur Ethereum et Solana - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, assurant confidentialité des données, sécurité et définir des interfaces claires pour les interactions.
+Faisons un parallèle entre langages-objets et smart-contrat :
+- Dans les **langages-objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
+- Dans le contexte des **smart-contracts** - *notamment sur Ethereum et Solana* - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, assurant confidentialité des données, sécurité et définir des interfaces claires pour les interactions.
 
 En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts de Ethereum vers Solana.
 
 Pour résumer, si on veut essayer de traduire les visibilités de **Solidity vers Rust/Anchor** :
-- **Publiques / Externes** : Accessibles à la fois à l'intérieur et à l'extérieur du programme. Dans Solana, toutes les fonctions déclarées sont, **par défaut publiques**. Toutes fonctions dans un module avec l'attribut `#[program]` doivent être déclarées avec le mot clef `pub`.
-- **Internes** : Accessibles à l'intérieur du programme lui-même et aux programmes qui en héritent. Les fonctions à l'intérieur d'un bloc `pub mod` imbriqué ne sont pas incluses dans le programme construit, mais elles peuvent toujours être accessibles à l'intérieur ou à l'extérieur du module parent.
-- **Privées** : Elles ne sont pas accessibles publiquement et ne peuvent pas être invoquées depuis l'extérieur de leur module. Pour obtenir cette visibilité privée en Rust/Solana, il faut définir une fonction dans un module spécifique avec le mot-clé `pub` (*dans `crate::<module>`*), ce qui la rend visible uniquement dans le module où elle a été définie.
+- **Publiques / Externes** : Accessibles partout. Par défaut, toutes les fonctions dans un module `#[program]` de Solana sont publiques et doivent être déclarées avec `pub`.
+- **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas incluses dans le programme final, mais restent accessibles.
+- **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible uniquement à l'intérieur de ce module.
 
 **Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
 
