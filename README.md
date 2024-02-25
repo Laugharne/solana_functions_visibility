@@ -47,12 +47,6 @@ Voici un récapitulatif des différents niveaux de visibilité disponibles pour 
 - **Interne (`internal`)** : Les fonctions internes sont similaires aux fonctions privées, mais elles peuvent également être appelées depuis les contrats dérivés (*hérités*). Elles ne sont pas accessibles depuis l'extérieur du contrat.
 - **Privé (`private`)** : Les fonctions privées ne peuvent être appelées que depuis d'autres fonctions définies dans le même contrat. Elles ne sont pas accessibles depuis l'extérieur du contrat ou depuis d'autres contrats. Elles sont généralement utilisées pour encapsuler la logique interne du contrat et pour éviter toute interférence externe.
 
---------
-
-- **Public (`public`)** : Accessible de l'**intérieur** et de l'**extérieur** du contrat.
-- **Externe (`external`)** : Accessible **uniquement** depuis l'**extérieur** du contrat.
-- **Interne (`internal`)** : Accessible de l'**intérieur** du contrat et aux contrats **hérités**.
-- **Privé (`private`)** : Accessible **uniquement** de l'**intérieur** du contrat.
 
 ### Exemple en Solidity
 
@@ -372,9 +366,9 @@ Faisons un parallèle entre langages-objets et smart-contrat :
 En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts de Ethereum vers Solana.
 
 Pour résumer, si on veut essayer de traduire les visibilités de **Solidity vers Rust/Anchor** :
-- **Publiques / Externes** : Accessibles partout. Par défaut, toutes les fonctions dans un module `#[program]` de Solana sont publiques et doivent être déclarées avec `pub`.
-- **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas incluses dans le programme final, mais restent accessibles.
-- **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible uniquement à l'intérieur de ce module.
+- **Publiques / Externes** : Accessibles partout. Par défaut, toutes les fonctions déclarées avec `pub` dans un module `#[program]` sont publiques.
+- **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas accessibles  depuis l'extérieur, mais restent atteignables dans notre code.
+- **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible uniquement à l'intérieur de son module.
 
 **Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
 
