@@ -20,7 +20,7 @@ Dans cet article, nous explorerons **la visibilité des fonctions des smart-cont
 
 Pour simplifier la compréhension, nous établirons un parallèle avec les contrats en Solidity pour Ethereum, mettant en lumière les différences entre les deux approches.
 
-Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
+Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation décentralisée sur la blockchain Ethereum.
 
 
 ## Solidity
