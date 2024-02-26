@@ -32,11 +32,11 @@ Voici quelques points clés à connaitre à ce sujet :
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
 - **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées ou pas depuis l'extérieur du contrat.
 - **Mutabilité** : La mutabilité d'une fonction est définie par les mots-clés `view` (*accès aux données stockées existantes sans modification*) ou `pure` (*aucun accès ou modification*).
+- **Payable** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
 - **Paramètres** : Les fonctions peuvent accepter des paramètres, qui sont des valeurs fournies lors de l'appel de la fonction. Ces paramètres peuvent être de différents types de données, tels que des entiers, des chaînes de caractères, des tableaux, etc.
 - **Valeurs de retour** : Les fonctions peuvent également renvoyer des valeurs après leur exécution. Vous pouvez spécifier le type de valeur de retour à l'aide du mot-clé `returns`.
 - **Décorateurs** : Les décorateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction (*mot-clef `modifier`*). Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
 - **Evenements** : Les fonctions peuvent émettre des événements à l'aide du mot-clé `emit`. Les événements sont utiles pour notifier les clients externes de l'état ou des actions importantes effectuées par le contrat.
-- **Payable** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
 
 ### Visibilité en Solidity
 
@@ -123,7 +123,7 @@ Avec la blockchain **Solana**, les fonctions des smart-contracts sont définies 
 
 Voici quelques éléments clés à savoir :
 
-- **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de données définissant le smart-contrat Solana et annotées avec des attributs spécifiques à Anchor.
+- **Déclaration** : Les fonctions sont définies à l'intérieur d'une structure de données définissant le smart-contrat Solana et annotées avec des attributs spécifiques à Anchor (`#[program]`).
 - **Attributs spécifiques** : Anchor fournit plusieurs attributs spécifiques pour annoter les fonctions des contrats Solana, tels que `#[instruction]` pour les instructions, `#[state]` pour les états et `#[derive(Accounts)]` pour la spécification des comptes nécessaires à l'exécution de la fonction.
 - **Fonctions d'instruction** : Les fonctions marquées avec l'attribut `#[instruction]` sont des instructions du contrat Solana qui peuvent être appelées depuis l'extérieur de la chaîne. Elles définissent les fonctionnalités et les actions du contrat.
 - **Fonctions de vérification** : Les fonctions de vérification sont utilisées pour valider les transactions et peuvent être marquées avec l'attribut `#[instruction]` pour indiquer qu'elles sont appelées en tant qu'instructions, ou avec l'attribut `#[guard]` pour indiquer qu'elles sont utilisées pour la validation uniquement.
