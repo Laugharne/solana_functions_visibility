@@ -384,7 +384,7 @@ Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur l
 
 Il existe également le projet [**Solang**](https://solana.com/developers/guides/solang/getting-started) (🇬🇧) qui est un **compilateur Solidity** pour Solana et [**Polkadot**](https://substrate.io/), élargissant ainsi les possibilités de développement. Comme Seahorse, Solang s'appuie sur Anchor pour fonctionner.
 
-Il utilise le compilateur du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitriser, des annotations spécifiques doivent être faites dans le code Solidity.
+Il utilise le compilateur du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il vise une compatibilité source avec la version 0.8 du compilateur `solc`, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitriser, des aménagements spécifiques doivent cependant être faits dans le code Solidity.
 
 
 --------
