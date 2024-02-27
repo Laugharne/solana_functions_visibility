@@ -377,9 +377,14 @@ Pour résumer, si on veut essayer de traduire les visibilités de **Solidity ver
 
 L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
 
-L'objectif de cet article est d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
+L'objectif de cet article est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
 
-**Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
+### Notes :
+Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
+
+Il existe également le projet [**Solang**](https://solana.com/developers/guides/solang/getting-started) (🇬🇧) qui est un **compilateur Solidity** pour Solana et [**Polkadot**](https://substrate.io/), élargissant ainsi les possibilités de développement. Comme Seahorse, Solang s'appuie sur Anchor pour fonctionner.
+
+Il utilise le compilateur du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitriser, des annotations spécifiques doivent être faites dans le code Solidity.
 
 
 --------
@@ -417,6 +422,10 @@ N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medi
   - 🇬🇧 [Anchor By Example - Introduction](https://examples.anchor-lang.com/)
   - 🇬🇧 [program in anchor_lang - Rust](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html)
   - 🇬🇧 [GitHub - coral-xyz/anchor: ⚓ Solana Sealevel Framework](https://github.com/coral-xyz/anchor)
+
+- **Solang :**
+  - 🇬🇧 [Getting started with Solang | Solana](https://solana.com/developers/guides/solang/getting-started)
+  - 🇬🇧 [Solang Solidity Compiler — Solang Solidity Compiler documentation (latest)](https://solang.readthedocs.io/en/latest/)
 
 - **IDL :**
   - 🇫🇷 [Interface Description Language — Wikipédia](https://fr.wikipedia.org/wiki/Interface_Description_Language)
