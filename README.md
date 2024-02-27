@@ -25,7 +25,7 @@ Si **Rust** est un langage très **puissant et généraliste**, parfaitement ada
 Vous pouvez pratiquer, tester et expérimenter du code grace à des *"sandbox"* en ligne :
 - En **Solidity** à l'aide de [**Remix**](https://remix.ethereum.org/), une plateforme pour les smart-contracts Ethereum.
 - Pour **Rust/Anchor**, vous pouvez utiliser [**Playground**](https://beta.solpg.io/), une interface offrant un environnement pour écrire et tester des contrats Solana.
-- En outre, pour **Rust**, vous pouvez utiliser [**Code Explorer**](https://godbolt.org/) mais spécifiquement pour ce langage en le sélectionnant.
+- En outre, pour **Rust**, vous pouvez utiliser [**Code Explorer**](https://godbolt.org/), mais spécifiquement pour ce langage en le sélectionnant.
 
 
 ## Solidity
@@ -49,7 +49,7 @@ Voici un récapitulatif des différents niveaux de visibilité disponibles pour 
 
 - **Public (`public`)** : Les fonctions publiques peuvent être appelées depuis n'importe où, à la fois à l'intérieur du contrat qui les définit et depuis d'autres contrats ou depuis l'extérieur de la blockchain. Elles sont généralement utilisées pour définir des points d'entrée ou des interfaces pour interagir avec le contrat.
 - **Externe (`external`)** : Les fonctions externes sont similaires aux fonctions publiques, mais elles ne peuvent être appelées que depuis l'extérieur de la blockchain (*c'est-à-dire par d'autres contrats ou par des transactions externes*). Elles ne peuvent pas être appelées depuis l'intérieur du contrat qui les définit.
-- **Interne (`internal`)** : Les fonctions internes sont similaires aux fonctions privées, mais elles peuvent également être appelées depuis les contrats dérivés (*hérités*). Elles ne sont pas accessibles depuis l'extérieur du contrat.
+- **Interne (`internal`)** : Les fonctions internes sont semblables aux fonctions privées, mais elles peuvent également être appelées depuis les contrats dérivés (*hérités*). Elles ne sont pas accessibles depuis l'extérieur du contrat.
 - **Privé (`private`)** : Les fonctions privées ne peuvent être appelées que depuis d'autres fonctions définies dans le même contrat. Elles ne sont pas accessibles depuis l'extérieur du contrat ou depuis d'autres contrats. Elles sont généralement utilisées pour encapsuler la logique interne du contrat et pour éviter toute interférence externe.
 
 
@@ -140,13 +140,13 @@ Voici quelques éléments clés à savoir :
 
 > La **distinction** entre publique et externe **n'existe pas** avec Anchor.
 
-Si cette distinction existe avec Solidity, elle est liée à la définition faite par langage lui même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
+Si cette distinction existe avec Solidity, elle est liée à la définition faite par langage lui-même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
 En **Rust** avec **Anchor**, une fonction est **publique** de par l'usage du mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
-`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est une regroupement d'éléments à des fins de structuration du code.
+`mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est un regroupement d'éléments à des fins de structuration du code.
 
-Le module (`mod`) doit d'être "*estampillé*" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permetant de définir le module comme un contrat étant un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "*estampillé*" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permettant de définir le module comme un contrat étant un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
@@ -270,13 +270,13 @@ note: the function `private_function` is defined here
 ```
 
 Qui est bien ce que nous voulions obtenir.
-- La fonction `private_function()` est bien inacessible à la compilation, car hors du module.
-- Le compilateur la considére bien comme privée.
+- La fonction `private_function()` est bien inaccessible à la compilation, car hors du module.
+- Le compilateur la considère comme privée.
 
 
 ### Exemple avec Rust & Anchor
 
-Le programme ci dessous, résume l'obtention des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
+Le programme ci-dessous, résume l'obtention des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
 
 ```rust
 use anchor_lang::prelude::*;
@@ -365,15 +365,15 @@ Fichier : "*contract.json*"
 ## Conclusion
 
 Faisons un parallèle entre langages-objets et smart-contrat :
-- Dans les **langages-objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
+- Dans les **langages-objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes, favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
 - Dans le contexte des **smart-contracts** - *notamment sur Ethereum et Solana* - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, assurant confidentialité des données, sécurité et définir des interfaces claires pour les interactions.
 
-En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts de Ethereum vers Solana.
+En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts d'Ethereum vers Solana.
 
 Pour résumer, si on veut essayer de traduire les visibilités de **Solidity vers Rust/Anchor** :
 - **Publiques / Externes** : Accessibles partout. Par défaut, toutes les fonctions déclarées avec `pub` dans un module `#[program]` sont publiques.
 - **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas accessibles  depuis l'extérieur, mais restent atteignables dans notre code.
-- **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible uniquement à l'intérieur de son module.
+- **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible exclusivement à l'intérieur de son module.
 
 L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
 
@@ -386,14 +386,14 @@ Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur l
 
 Il existe également le projet [**Solang**](https://solana.com/developers/guides/solang/getting-started) (🇬🇧) qui est un **compilateur Solidity** pour Solana et [**Polkadot**](https://substrate.io/), élargissant ainsi les possibilités de développement. Comme Seahorse, Solang s'appuie sur Anchor pour fonctionner.
 
-Il utilise l'environnement logiciel du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il vise une compatibilité source avec la version 0.8 du compilateur `solc`, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitriser, des aménagements spécifiques doivent parfois être faits dans le code Solidity.
+Il utilise l'environnement logiciel du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il vise une compatibilité source avec la version 0.8 du compilateur `solc`, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitrisé, des aménagements spécifiques doivent parfois être faits dans le code Solidity.
 
 
 --------
 
 Crédits : **[Franck Maussand](mailto:franck@maussand.net)**
 
-N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medium**](https://medium.com/@franck.maussand) (🇫🇷 **/** 🇬🇧) !
+N'hésitez pas à jeter un coup d'œil sur mes précédents articles sur [**Medium**](https://medium.com/@franck.maussand) (🇫🇷 **/** 🇬🇧) !
 
 --------
 
