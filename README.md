@@ -22,6 +22,11 @@ Pour simplifier la compréhension, nous établirons un parallèle avec les contr
 
 Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts**, offrant des fonctionnalités spécialisées pour la programmation pour la blockchain Ethereum.
 
+Vous pouvez pratiquer, tester et expérimenter du code grace à des *"sandbox"* en ligne :
+- En **Solidity** à l'aide de [**Remix**](https://remix.ethereum.org/), une plateforme pour les smart-contracts Ethereum.
+- Pour **Rust/Anchor**, vous pouvez utiliser [**Playground**](https://beta.solpg.io/), une interface offrant un environnement pour écrire et tester des contrats Solana.
+- En outre, pour **Rust**, vous pouvez utiliser [**Code Explorer**](https://godbolt.org/) mais spécifiquement pour ce langage en le sélectionnant.
+
 
 ## Solidity
 
@@ -370,6 +375,10 @@ Pour résumer, si on veut essayer de traduire les visibilités de **Solidity ver
 - **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas accessibles  depuis l'extérieur, mais restent atteignables dans notre code.
 - **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible uniquement à l'intérieur de son module.
 
+L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
+
+L'objectif de cet article est d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
+
 **Note :** Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur la blockchain Solana. Le framework [**Seahorse**](https://seahorse-lang.org/) (🇬🇧) par exemple permet de les programmer en [**Python**](https://www.python.org/) (🇬🇧). Seahorse s'appuie sur Anchor ainsi que sur divers autres crates (*Rust packages*) pour fonctionner.
 
 
@@ -401,6 +410,7 @@ N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medi
   - 🇬🇧 [Visibility and privacy - The Rust Reference](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html)
   - 🇬🇧 [pub - Rust](https://doc.rust-lang.org/std/keyword.pub.html)
   - 🇬🇧 [mod - Rust](https://doc.rust-lang.org/std/keyword.mod.html)
+  - 🇬🇧 [Macros - The Rust Programming Language](https://doc.rust-lang.org/book/ch19-06-macros.html)
 
 - **Anchor :**
   - 🇬🇧 [Anchor - Introduction](https://www.anchor-lang.com/)
@@ -421,6 +431,7 @@ N'hésitez pas à jeter un coup d'oeil sur mes précédents articles sur [**Medi
 - **Sandbox :**
   - 🇬🇧 [Remix - Ethereum IDE](https://remix.ethereum.org/)
   - 🇬🇧 [Solana Playground | Solana IDE](https://beta.solpg.io/)
+  - 🇬🇧 [Compiler Explorer (for Rust 🦀)](https://godbolt.org/)
 
 - **Convention de nommage :**
   - 🇫🇷 [Snake case — Wikipédia](https://fr.wikipedia.org/wiki/Snake_case)
