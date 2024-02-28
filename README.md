@@ -37,11 +37,11 @@ Voici quelques points clés à connaitre à ce sujet :
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
 - **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `public`, `private`, `internal` et `external`, qui déterminent comment elles peuvent être appelées ou pas depuis l'extérieur du contrat.
 - **Mutabilité** : La mutabilité d'une fonction est définie par les mots-clés `view` (*accès aux données stockées existantes sans modification*) ou `pure` (*aucun accès ou modification*).
-- **Payable** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
+- **Recevabilité** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
 - **Paramètres** : Les fonctions peuvent accepter des paramètres, qui sont des valeurs fournies lors de l'appel de la fonction. Ces paramètres peuvent être de différents types de données, tels que des entiers, des chaînes de caractères, des tableaux, etc.
 - **Valeurs de retour** : Les fonctions peuvent également renvoyer des valeurs après leur exécution. Vous pouvez spécifier le type de valeur de retour à l'aide du mot-clé `returns`.
 - **Décorateurs** : Les décorateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction (*mot-clef `modifier`*). Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
-- **Evenements** : Les fonctions peuvent émettre des événements à l'aide du mot-clé `emit`. Les événements sont utiles pour notifier les clients externes de l'état ou des actions importantes effectuées par le contrat.
+- **Événements** : Les fonctions peuvent émettre des événements à l'aide du mot-clé `emit`. Les événements sont utiles pour notifier les clients externes de l'état ou des actions importantes effectuées par le contrat.
 
 ### Visibilité en Solidity
 
@@ -167,7 +167,7 @@ pub mod contract {
 
 #### Interne / Privé
 
-- Rust n'a pas de "classes" comme le fait Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
+- Rust n'a pas de notion de "classes" comme l'a Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - Par conséquent, la distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
 Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
@@ -368,7 +368,7 @@ Faisons un parallèle entre langages-objets et smart-contrat :
 - Dans les **langages-objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes, favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
 - Dans le contexte des **smart-contracts** - *notamment sur Ethereum et Solana* - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, assurant confidentialité des données, sécurité et définir des interfaces claires pour les interactions.
 
-En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts d'Ethereum vers Solana.
+> En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts d'Ethereum vers Solana.
 
 Pour résumer, si on veut essayer de traduire les visibilités de **Solidity vers Rust/Anchor** :
 - **Publiques / Externes** : Accessibles partout. Par défaut, toutes les fonctions déclarées avec `pub` dans un module `#[program]` sont publiques.
@@ -377,7 +377,7 @@ Pour résumer, si on veut essayer de traduire les visibilités de **Solidity ver
 
 L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
 
-L'objectif de cet article est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
+> L'objectif de cet article est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
 
 
 ## Apartés :
@@ -386,7 +386,7 @@ Rust, n'est pas le seul langage qui permette de créer des smart-contracts sur l
 
 Il existe également le projet [**Solang**](https://solana.com/developers/guides/solang/getting-started) (🇬🇧) qui est un **compilateur Solidity** pour Solana et [**Polkadot**](https://substrate.io/), élargissant ainsi les possibilités de développement. Comme Seahorse, Solang s'appuie sur Anchor pour fonctionner.
 
-Il utilise l'environnement logiciel du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana SBF (Solana Binary format)**, il vise une compatibilité source avec la version 0.8 du compilateur `solc`, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitrisé, des aménagements spécifiques doivent parfois être faits dans le code Solidity.
+Il utilise l'environnement logiciel du projet [**LLVM**](https://www.llvm.org/) (🇬🇧) pour produire du code [**WebAssembly (WASM)**](https://webassembly.org/) (🇬🇧) ou **Solana Binary format (SBF)**, il vise une compatibilité source avec la version 0.8 du compilateur `solc`, il nécessite cependant une bonne connaissance des deux blockchains pour être correctement maitrisé, des aménagements spécifiques doivent parfois être faits dans le code Solidity.
 
 
 --------
@@ -425,10 +425,6 @@ N'hésitez pas à jeter un coup d'œil sur mes précédents articles sur [**Medi
   - 🇬🇧 [program in anchor_lang - Rust](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html)
   - 🇬🇧 [GitHub - coral-xyz/anchor: ⚓ Solana Sealevel Framework](https://github.com/coral-xyz/anchor)
 
-- **Solang :**
-  - 🇬🇧 [Getting started with Solang | Solana](https://solana.com/developers/guides/solang/getting-started)
-  - 🇬🇧 [Solang Solidity Compiler — Solang Solidity Compiler documentation (latest)](https://solang.readthedocs.io/en/latest/)
-
 - **IDL :**
   - 🇫🇷 [Interface Description Language — Wikipédia](https://fr.wikipedia.org/wiki/Interface_Description_Language)
   - 🇬🇧 [Interface description language - Wikipedia](https://en.wikipedia.org/wiki/Interface_description_language)
@@ -438,6 +434,11 @@ N'hésitez pas à jeter un coup d'œil sur mes précédents articles sur [**Medi
 - **Seahorse :**
   - 🇬🇧 [Seahorse (Beta) | Solana programs in Python](https://seahorse-lang.org/)
   - 🇬🇧 [Solana Bytes - Intro to Seahorse - YouTube](https://www.youtube.com/watch?v=Wt3kcIb98Do)
+
+- **Solang :**
+  - 🇬🇧 [Getting started with Solang | Solana](https://solana.com/developers/guides/solang/getting-started)
+  - 🇬🇧 [Solang Solidity Compiler — Solang Solidity Compiler documentation (latest)](https://solang.readthedocs.io/en/latest/)
+  - 🇬🇧 [The LLVM Compiler Infrastructure Project](https://www.llvm.org/)
 
 - **Sandbox :**
   - 🇬🇧 [Remix - Ethereum IDE](https://remix.ethereum.org/)
