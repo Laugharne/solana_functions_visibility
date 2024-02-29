@@ -16,9 +16,7 @@
 
 Les smart-contracts sont un élément essentiel de l'écosystème blockchain, offrant des fonctionnalités décentralisées et autonomes qui sous-tendent un large éventail d'applications.
 
-Dans cet article, nous explorerons **la visibilité des fonctions des smart-contracts en Rust sur la blockchain Solana**.
-
-L'objectif est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
+Dans cet article, nous explorerons **la visibilité des fonctions des smart-contracts en Rust sur la blockchain Solana**, l'objectif est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
 
 Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts** pour les EVM, notement pour la blockchain Ethereum.
 
@@ -48,7 +46,7 @@ Voici quelques points clés à connaitre à ce sujet :
 Voici un récapitulatif des différents niveaux de visibilité disponibles pour les fonctions en **Solidity** :
 
 - **Externe (`external`)** : Les fonctions externes sont similaires aux fonctions publiques, mais elles ne peuvent être appelées que depuis l'extérieur de la blockchain (*c'est-à-dire par d'autres contrats ou par des transactions externes*). Elles ne peuvent pas être appelées depuis l'intérieur du contrat qui les définit.
-- **Public (`public`)** : Les fonctions publiques peuvent être appelées depuis n'importe où, à la fois à l'intérieur du contrat qui les définit et depuis d'autres contrats ou depuis l'extérieur de la blockchain. Elles sont généralement utilisées pour définir des points d'entrée pour interagir avec le contrat.
+- **Publique (`public`)** : Les fonctions publiques peuvent être appelées depuis n'importe où, à la fois à l'intérieur du contrat qui les définit et depuis d'autres contrats ou depuis l'extérieur de la blockchain. Elles sont généralement utilisées pour définir des points d'entrée pour interagir avec le contrat.
 - **Privé (`private`)** : Les fonctions privées ne peuvent être appelées que depuis d'autres fonctions définies dans le même contrat. Elles ne sont pas accessibles depuis l'extérieur du contrat ou depuis d'autres contrats. Elles sont généralement utilisées pour encapsuler la logique interne du contrat et pour éviter toute interférence externe.
 - **Interne (`internal`)** : Les fonctions internes sont semblables aux fonctions privées, mais elles peuvent également être appelées depuis les contrats dérivés (*hérités*). Elles ne sont pas accessibles depuis l'extérieur du contrat.
 
@@ -170,7 +168,7 @@ pub mod contract {
 - Rust n'a pas de notion de "classes" comme l'a Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - La distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
-Les modules permettent d'organiser le code. La [visibilité des fonctions](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) par rapport aux modules existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
+Les modules permettent d'organiser le code. La [**La visibilité des fonctions par rapport aux modules**](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
 
 > **Interne et privé** sont des visibilités antagonistes à **externe et publique**.
 
@@ -392,6 +390,8 @@ Il utilise l'environnement logiciel du projet [**LLVM**](https://www.llvm.org/) 
 Crédits : **[Franck Maussand](mailto:franck@maussand.net)**
 
 N'hésitez pas à jeter un coup d'œil sur mes précédents articles sur [**Medium**](https://medium.com/@franck.maussand) (🇫🇷 **/** 🇬🇧) !
+
+*Merci à [**Igor Bournazel**](https://github.com/ibourn) pour ses suggestions et la relecture de cet article.*
 
 --------
 
