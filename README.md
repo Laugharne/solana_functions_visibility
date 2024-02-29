@@ -68,7 +68,7 @@ contract ContractA {
 
     // Constructeur du contrat
     constructor(uint256 _initialValue) {
-        publicVariable  = _initialValue;
+        publicVariable = _initialValue;
         privateVariable = _initialValue;
     }
 
@@ -77,15 +77,15 @@ contract ContractA {
         return publicVariable;
     }
 
+    // Fonction privée
+    function privateFunction() private returns (uint256) {
+        return privateVariable;
+    }
+
     // Fonction externe
     function externalFunction() external returns (uint256) {
         // Appel de la fonction privée à partir d'une fonction publique
         return privateFunction();
-    }
-
-    // Fonction privée
-    function privateFunction() private returns (uint256) {
-        return privateVariable;
     }
 
     // Fonction interne
@@ -108,11 +108,34 @@ contract ContractB {
         return instanceOfContractA.publicFunction();
     }
 
+//    // Fonction publique qui appelle une fonction privée du contrat A
+//    function usePrivateFunctionContractA() public returns (uint256) {
+//        // Appel de la fonction privée du contrat A
+//        return instanceOfContractA.privateFunction(); // Erreur de compilation : privateFunction n'est pas visible ici
+//    }
+
 //    // Fonction publique qui appelle une fonction interne du contrat A
 //    function useInternalFunctionContractA() public returns (uint256) {
 //        // Appel de la fonction interne du contrat A
 //        return instanceOfContractA.internalFunction(); // Erreur de compilation : internalFunction n'est pas visible ici
 //    }
+
+}
+
+// Inherited
+contract Inherited is ContractA(42) {
+
+//    // Fonction publique qui appelle une fonction privée du contrat A
+//    function usePrivateFunctionContractA() public returns (uint256) {
+//       // Appel de la fonction privée du contrat A
+//        return privateFunction(); // Erreur de compilation : privateFunction n'est pas visible ici
+//    }
+
+    // Fonction publique qui appelle une fonction interne du contrat A
+    function useInternalFunctionContractA() public returns (uint256) {
+        // Appel de la fonction interne héritée du contrat A
+        return internalFunction();
+    }
 
 }
 ```
