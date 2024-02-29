@@ -95,33 +95,6 @@ contract ContractA {
 
 }
 
-// Contract B
-contract ContractB {
-    // Déclaration d'une instance du contrat A
-    ContractA instanceOfContractA;
-
-    // Fonction publique qui appelle une fonction publique du contrat A
-    function usePublicFunctionContractA() public returns (uint256) {
-        // Création d'une nouvelle instance du contrat A
-        instanceOfContractA = new ContractA(10);
-        // Appel de la fonction publique du contrat A
-        return instanceOfContractA.publicFunction();
-    }
-
-//    // Fonction publique qui appelle une fonction privée du contrat A
-//    function usePrivateFunctionContractA() public returns (uint256) {
-//        // Appel de la fonction privée du contrat A
-//        return instanceOfContractA.privateFunction(); // Erreur de compilation : privateFunction n'est pas visible ici
-//    }
-
-//    // Fonction publique qui appelle une fonction interne du contrat A
-//    function useInternalFunctionContractA() public returns (uint256) {
-//        // Appel de la fonction interne du contrat A
-//        return instanceOfContractA.internalFunction(); // Erreur de compilation : internalFunction n'est pas visible ici
-//    }
-
-}
-
 // Inherited
 contract Inherited is ContractA(42) {
 
