@@ -18,7 +18,7 @@ Les smart-contracts sont un élément essentiel de l'écosystème blockchain, of
 
 Dans cet article, nous explorerons **la visibilité des fonctions des smart-contracts en Rust sur la blockchain Solana**, l'objectif est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
 
-Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts** pour les EVM, notement pour la blockchain Ethereum.
+Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts** pour les EVM, notament sur la blockchain Ethereum.
 
 Vous pouvez pratiquer, tester et expérimenter du code grace à des *"sandbox"* en ligne :
 - En **Solidity** à l'aide de [**Remix**](https://remix.ethereum.org/), une plateforme pour les smart-contracts Ethereum.
@@ -191,7 +191,7 @@ pub mod contract {
 - Rust n'a pas de notion de "classes" comme l'a Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - La distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
-Les modules permettent d'organiser le code. La [**La visibilité des fonctions par rapport aux modules**](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
+Les modules permettent d'organiser le code. [**La visibilité des fonctions par rapport aux modules**](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
 
 > **Interne et privé** sont des visibilités antagonistes à **externe et publique**.
 
