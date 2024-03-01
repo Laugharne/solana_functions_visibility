@@ -134,13 +134,13 @@ Voici quelques éléments clés à savoir :
 
 > La **distinction** entre publique et externe **n'existe pas** avec Anchor.
 
-Si cette distinction existe avec Solidity, elle est liée à la définition faite par langage lui-même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
+Si cette distinction existe avec Solidity, elle est liée à la définition faite par le langage lui-même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
 En **Rust** avec **Anchor**, une fonction est **publique** de par l'usage du mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
 `mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est un regroupement d'éléments à des fins de structuration du code.
 
-Le module (`mod`) doit d'être "*estampillé*" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permettant de définir le module comme un contrat étant un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
+Le module (`mod`) doit d'être "*estampillé*" avec la [**macro-attribut `#[program]`**](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html) (🇬🇧) définie par le framework Anchor, permettant de définir le module comme étant un contrat intelligent, ses fonctions devenant des points d'entrée pour les transactions sur Solana.
 
 **Illustration :**
 ```rust
@@ -161,7 +161,7 @@ pub mod contract {
 
 #### Interne / Privé
 
-- Rust n'a pas de notion de "classes" comme l'a Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
+- Rust n'a pas de notion de "classes" comme Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
 - La distinction entre "private" et "internal" ne peux être directement applicable à Rust.
 
 Les modules permettent d'organiser le code. [**La visibilité des fonctions par rapport aux modules**](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
@@ -324,7 +324,7 @@ mod other_module {
 pub struct Initialize {}
 ``` 
 
-On retrouve avec Anchor l'équivalent des données **ABI** de Solidity qui expose les points d'entrée. Il s'agit des données [**IDL** (*Interface Description Language*)](https://fr.wikipedia.org/wiki/Interface_Description_Language) (🇫🇷) qui servent à définir l'interface entre un smart-contract Solana et les applications clientes.
+On retrouve avec Anchor l'équivalent des données **ABI** de Solidity qui expose les points d'entrée entre un smart-contract Solana et les applications clientes. Il s'agit des données [**IDL** (*Interface Description Language*)](https://fr.wikipedia.org/wiki/Interface_Description_Language) (🇫🇷).
 
 Elles spécifient la structure des données et les fonctions disponibles, facilitant ainsi l'interaction et la communication entre les contrats intelligents et les applications externes. Ces données au format [**JSON**](https://www.json.org/json-fr.html) (🇫🇷) sont générées lors du build du projet Solana.
 
@@ -369,7 +369,7 @@ Pour résumer, si on veut essayer de traduire les visibilités de **Solidity ver
 - **Internes** : Accessibles uniquement à l'intérieur du programme et à ses modules enfants. Les fonctions dans un bloc `pub mod` ne sont pas accessibles  depuis l'extérieur, mais restent atteignables dans notre code.
 - **Privées** : Non accessibles de l'extérieur. Pour une fonction privée en Rust/Solana, la déclarer dans un module avec `pub(in crate::contract)` la rend visible exclusivement à l'intérieur de son module.
 
-L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
+L'usage de [**macros**](https://doc.rust-lang.org/book/ch19-06-macros.html) (🇬🇧) spécifiques pourrait simplifier grandement l'attribution et l'usage de visibilité aux fonctions Rust/Anchor de manière plus proche à celle de Solidity. Mais est-il vraiment utile de mimer à ce point Solidity ?  Il est peut-être plus judicieux de s'immerger dans le paradigme spécifique de Solana.
 
 
 ## Apartés :
