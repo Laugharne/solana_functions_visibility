@@ -18,7 +18,7 @@ Les smart-contracts sont un élément essentiel de l'écosystème blockchain, of
 
 Dans cet article, nous explorerons **la visibilité des fonctions des smart-contracts en Rust sur la blockchain Solana**, l'objectif est surtout d'aider ceux qui viennent d'Ethereum et qui connaissent Solidity à mieux comprendre Solana.
 
-Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts** pour les EVM, notament sur la blockchain Ethereum.
+Si **Rust** est un langage très **puissant et généraliste**, parfaitement adapté à une grande variété de développement, **Solidity** est spécifique à l'écriture de **smart-contracts** pour les EVM, notamment sur la blockchain Ethereum.
 
 Vous pouvez pratiquer, tester et expérimenter du code grace à des *"sandbox"* en ligne :
 - En **Solidity** à l'aide de [**Remix**](https://remix.ethereum.org/), une plateforme pour les smart-contracts Ethereum.
@@ -35,10 +35,10 @@ Voici quelques points clés à connaitre à ce sujet :
 - **Déclaration** : Les fonctions sont déclarées à l'intérieur du contrat à l'aide du mot-clé `function`.
 - **Visibilité** : Les fonctions peuvent avoir différents niveaux de visibilité, tels que `external`, `public`, `private` et `internal` qui déterminent comment elles peuvent être appelées ou pas depuis l'extérieur du contrat.
 - **Mutabilité** : La mutabilité d'une fonction est définie par les mots-clés `view` (*accès aux données stockées existantes sans modification*) ou `pure` (*aucun accès ou modification*).
-- **Recevabilité** : `payable` Autorise la fonction à recevoir des paiements lors de son exécution.
+- **Recevabilité** : `payable` Autorise la fonction a recevoir des paiements lors de son exécution.
 - **Paramètres** : Les fonctions peuvent accepter des paramètres de différents types de données, tels que des entiers, des chaînes de caractères, des tableaux, etc.
 - **Valeurs de retour** : Les fonctions peuvent également renvoyer des valeurs après leur exécution. Vous pouvez spécifier le type de valeur de retour à l'aide du mot-clé `returns`.
-- **Décorateurs** : Les décorateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction (*mot-clef `modifier`*). Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
+- **Décorateurs** : Les décorateurs sont des morceaux de code réutilisables qui peuvent modifier le comportement d'une fonction (*mot-clé `modifier`*). Ils sont souvent utilisés pour ajouter des conditions de sécurité ou des vérifications préalables à l'exécution de la fonction.
 - **Événements** : Les fonctions peuvent émettre des événements à l'aide du mot-clé `emit`. Les événements sont utiles pour notifier les clients externes de l'état ou des actions importantes effectuées par le contrat.
 
 ### Visibilité en Solidity
@@ -72,6 +72,12 @@ contract ContractA {
         privateVariable = _initialValue;
     }
 
+    // Fonction externe
+    function externalFunction() external returns (uint256) {
+        // Appel de la fonction privée à partir d'une fonction publique
+        return privateFunction();
+    }
+
     // Fonction publique
     function publicFunction() public returns (uint256) {
         return publicVariable;
@@ -80,12 +86,6 @@ contract ContractA {
     // Fonction privée
     function privateFunction() private returns (uint256) {
         return privateVariable;
-    }
-
-    // Fonction externe
-    function externalFunction() external returns (uint256) {
-        // Appel de la fonction privée à partir d'une fonction publique
-        return privateFunction();
     }
 
     // Fonction interne
@@ -136,7 +136,7 @@ Voici quelques éléments clés à savoir :
 
 Si cette distinction existe avec Solidity, elle est liée à la définition faite par le langage lui-même et au compilateur. Elle sert principalement à l'organisation du code en limitant l'accès via le mot-clé `external`.
 
-En **Rust** avec **Anchor**, une fonction est **publique** de par l'usage du mot clef `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
+En **Rust** avec **Anchor**, une fonction est **publique** de par l'usage du mot-clé `pub` qui la rend [**accessible**](https://doc.rust-lang.org/std/keyword.pub.html) (🇬🇧) depuis l'extérieur du module qui la définit.
 
 `mod` est utilisé pour déclarer un module dans Rust. Un [**module**](https://doc.rust-lang.org/std/keyword.mod.html) (🇬🇧) est un regroupement d'éléments à des fins de structuration du code.
 
@@ -162,7 +162,7 @@ pub mod contract {
 #### Interne / Privé
 
 - Rust n'a pas de notion de "classes" comme Solidity, car Rust n'est pas un langage orienté objet (*mais une approche objet est possible et convaincante*).
-- La distinction entre "private" et "internal" ne peux être directement applicable à Rust.
+- La distinction entre "private" et "internal" ne peut être directement applicable à Rust.
 
 Les modules permettent d'organiser le code. [**La visibilité des fonctions par rapport aux modules**](https://doc.rust-lang.org/beta/reference/visibility-and-privacy.html) (🇬🇧) existe bien, mais il nous faut y porter un regard différent lié au contexte de Solana.
 
@@ -270,7 +270,7 @@ mod other_module {
 
 ### Exemple avec Rust & Anchor
 
-Le programme ci-dessous, résume l'obtention des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
+Le programme ci-dessous résume l'obtention des visibilités en utilisant le langage **Rust et Anchor**. Il essaie de reproduire les concepts de visibilité de Solidity (*voir exemple précédent*).
 
 ```rust
 use anchor_lang::prelude::*;
@@ -358,8 +358,8 @@ Fichier : "*contract.json*"
 
 ## Conclusion
 
-Faisons un parallèle entre langages-objets et smart-contrat :
-- Dans les **langages-objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes, favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
+Faisons un parallèle entre langages objets et smart-contrat :
+- Dans les **langages objets** les modificateurs d'accès (*access modifiers*) permettent de contrôler l'encapsulation des données et des fonctionnalités dans les classes, favorisant ainsi la modularité, la sécurité et la réutilisabilité du code.
 - Dans le contexte des **smart-contracts** - *notamment sur Ethereum et Solana* - les visibilités définissent qui peut accéder aux différentes parties du code des contrats, définissant des interfaces claires pour les interactions.
 
 > En raison de certaines différences de conception et d'architecture de Solana et des spécificités de Rust par rapport à Ethereum et Solidity, on ne peut transposer directement ces concepts d'Ethereum vers Solana.
