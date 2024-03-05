@@ -417,6 +417,7 @@ N'hésitez pas à jeter un coup d'œil sur mes précédents articles sur [**Medi
   - 🇬🇧 [Anchor - Introduction](https://www.anchor-lang.com/)
   - 🇬🇧 [Anchor By Example - Introduction](https://examples.anchor-lang.com/)
   - 🇬🇧 [program in anchor_lang - Rust](https://docs.rs/anchor-lang/latest/anchor_lang/attr.program.html)
+  - 🇬🇧 [Visibility and "inheritance" in Rust and Solana](https://www.rareskills.io/post/rust-function-visibility)
   - 🇬🇧 [GitHub - coral-xyz/anchor: ⚓ Solana Sealevel Framework](https://github.com/coral-xyz/anchor)
 
 - **IDL :**
